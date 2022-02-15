@@ -3,8 +3,9 @@ const fs = require('fs')
 const args = process.argv.slice(2)
 const filePath = args[0].split('locales')
 
-const lang = filePath[1].split('/')[1]
-const fileName = filePath[1].split('/')[2]
+const FLAG = filePath[1].includes('\\') ? '\\' : '/'
+
+const [, lang, fileName] = filePath[1].split(FLAG)
 var repeatArr = []
 const files = fs.readdirSync(`locales/${lang}`)
 const allKeyArr = []
@@ -25,7 +26,7 @@ Object.keys(thisFileObj).forEach(key => {
     repeatArr.push(key)
   }
 })
-  
+
 if(repeatArr.length>0) {
   let errMessage  = `/locales/${lang}/${fileName}文件中存在以下重复UI词条：`+repeatArr
   throw errMessage
