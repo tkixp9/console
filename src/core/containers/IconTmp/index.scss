@@ -1,0 +1,13 @@
+@import '~scss/variables';
+@import '~scss/mixins';
+
+.wrap {
+  padding: 40px;
+  margin: 20px;
+  width: 900px;
+  :global {
+    .icon {
+      margin: 20px;
+    }
+  }
+}

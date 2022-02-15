@@ -28,6 +28,8 @@ import {
   InputPassword,
 } from '@kube-design/components'
 
+import { get } from 'lodash'
+
 import styles from './index.scss'
 
 function encrypt(salt, str) {
@@ -96,44 +98,54 @@ export default class Login extends Component {
   render() {
     const { formData, isSubmmiting, errorMessage } = this.state
     return (
-      <div className={styles.wrap}>
-        <div className={styles.content}>
-          {errorMessage && <Alert type="error" message={t(errorMessage)} />}
-          <img
-            className={styles.leftBg}
-            src="/assets/igw/login-bg.png"
-            alt=""
-          />
-          <div className={styles.rightWrap}>
-            <h1 className={styles.title}>{t('IGW_PLATFORM_TITLE')}</h1>
-            <Form data={formData} onSubmit={this.handleSubmit}>
-              <Form.Item
-                className={styles.account}
-                rules={[
-                  { required: true, message: t('IGW_INPUT_ACCOUNT_TIP') },
-                ]}
-              >
-                <Input
-                  name="username"
-                  placeholder={t('IGW_INPUT_ACCOUNT_TIP')}
-                />
-              </Form.Item>
-              <Form.Item
-                className={styles.password}
-                rules={[
-                  { required: true, message: t('IGW_PASSWORD_EMPTY_DESC') },
-                ]}
-              >
-                <InputPassword
-                  name="password"
-                  placeholder={t('IGW_PASSWORD_EMPTY_DESC')}
-                />
-              </Form.Item>
-              <Button type="primary" htmlType="submit" loading={isSubmmiting}>
+      <div>
+        <a href="/" className={styles.logo}>
+          <img src="/assets/logo.svg" alt="" />
+        </a>
+        <div className={styles.login}>
+          <div className={styles.header}>{t('WELCOME')}</div>
+          <div className={styles.divider}></div>
+          {get(globals, 'oauthServers', []).map(server => (
+            <div
+              key={server.url}
+              className={styles.oauth}
+              data-url={server.url}
+              onClick={this.handleOAuthLogin(server)}
+            >
+              <span>{t('LOG_IN_WITH_TITLE', { title: server.title })}</span>
+            </div>
+          ))}
+          {errorMessage && (
+            <Alert
+              className="margin-t12 margin-b12"
+              type="error"
+              message={t(errorMessage)}
+            />
+          )}
+          <Form data={formData} onSubmit={this.handleSubmit}>
+            <Form.Item
+              label={t('USERNAME_OR_EMAIL')}
+              rules={[
+                {
+                  required: true,
+                  message: t('INPUT_USERNAME_OR_EMAIL_TIP'),
+                },
+              ]}
+            >
+              <Input name="username" placeholder="user@example.com" />
+            </Form.Item>
+            <Form.Item
+              label={t('PASSWORD')}
+              rules={[{ required: true, message: t('PASSWORD_EMPTY_DESC') }]}
+            >
+              <InputPassword name="password" placeholder="Password" />
+            </Form.Item>
+            <div className={styles.footer}>
+              <Button type="control" htmlType="submit" loading={isSubmmiting}>
                 {t('LOG_IN')}
               </Button>
-            </Form>
-          </div>
+            </div>
+          </Form>
         </div>
       </div>
     )

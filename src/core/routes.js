@@ -20,6 +20,7 @@ import { lazy } from 'react'
 
 import BaseLayout from 'core/layouts/Base'
 import Login from 'core/containers/Login'
+import IconTmp from 'core/containers/IconTmp'
 import LoginConfirm from 'core/containers/LoginConfirm'
 import PasswordConfirm from 'core/containers/PasswordConfirm'
 
@@ -50,6 +51,7 @@ const DevOps = lazy(() =>
 const App = lazy(() => import(/* webpackChunkName: "apps" */ 'apps/App.jsx'))
 
 export default [
+  { path: `/icontmp`, component: IconTmp, exact: true },
   { path: `/login`, component: Login, exact: true },
   { path: `/login/confirm`, component: LoginConfirm, exact: true },
   { path: `/password/confirm`, component: PasswordConfirm, exact: true },

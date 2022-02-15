@@ -1,92 +1,151 @@
 @import '~scss/variables';
 @import '~scss/mixins';
 
-.logo {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.logo img {
-  width: 180px;
-  height: 40px;
-}
-
-.login {
-  position: relative;
-  width: 320px;
-  margin: 140px auto 40px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: $base-shadow;
-  box-sizing: border-box;
-
-  :global {
-    .form-item-label {
-      @include TypographySymbolText;
-    }
-
-    input.input {
-      height: 36px;
-    }
-  }
-}
-
-.header {
-  position: relative;
-  font-weight: 600;
-  font-size: 12px;
-  color: $text-color;
-  line-height: 20px;
-  text-align: center;
-}
-
-.divider {
+.wrap {
+  height: 100%;
   width: 100%;
-  height: 0;
-  margin-top: 12px;
-  margin-bottom: 20px;
-  opacity: 0.6;
-  border-bottom: 1px solid;
-  border-image-source: radial-gradient(circle at 50% 0, #abb4be, #ffffff 100%);
-  border-image-slice: 1;
+  background: $igw-blue-color;
+  min-height: 400px;
 }
-
-.footer {
-  margin-top: 24px;
-  button[type='submit'] {
-    width: 100%;
+.content {
+  white-space: nowrap;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: $igw-white-color;
+  border-radius: 12px;
+  min-width: 672px;
+  :global {
+    .alert {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      .alert-content {
+        width: 100%;
+      }
+      .alert-message {
+        display: block;
+        font-size: 14px;
+      }
+    }
   }
-}
-
-.oauth {
-  padding: 6px;
-  border-radius: 2px;
-  background-color: #eff4f9;
-  color: #36435c;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 20px;
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #d8dee5;
+  .leftBg,
+  .rightWrap {
+    height: 400px;
+    width: 336px;
+    display: inline-block;
+    vertical-align: top;
   }
-
-  &:active {
-    background-color: #d1d7df;
+  .leftBg {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
   }
-
-  & + .oauth {
-    margin-top: 8px;
+  .title {
+    font-size: 18px;
+    text-align: center;
+    margin: 48px 0;
   }
+  .rightWrap {
+    .account,
+    .password {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        background-image: url('/assets/igw/account.svg');
+        background-size: cover;
+        width: 20px;
+        height: 20px;
+        left: 32px;
+        top: 6px;
+      }
+    }
+    .password {
+      &::before {
+        background-image: url('/assets/igw/password.svg');
+      }
+    }
+    :global {
+      .form-item-error {
+        position: absolute;
+        top: 36px;
+        left: 32px;
+      }
+      .button-content {
+        height: auto;
+      }
+      .button {
+        width: 240px;
+        margin: 28px auto 0;
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        border: none;
+        letter-spacing: 8px;
+        border-radius: 6px;
+        background-color: $igw-blue-color;
+        box-shadow: $igw-btn-blue-shadow;
+        padding: 0;
+        .spin {
+          vertical-align: top;
+          margin-top: 4px;
+        }
+      }
 
-  & + form {
-    padding-top: 20px;
+      input.input {
+        height: 36px;
+        margin: 0 0 28px 24px;
+        width: 288px;
+        border: none;
+        border-bottom: 1px solid $igw-gray-color-e0;
+        border-radius: 0;
+        background-color: transparent;
+        font-size: 14px;
+        padding-left: 40px;
+        &:focus {
+          box-shadow: none;
+          border-color: $igw-gray-color-e0;
+        }
+        &:hover {
+          border-color: $igw-gray-color-e0;
+        }
+        & + span {
+          display: none;
+        }
+      }
+
+      .form-item.error-item .input:focus,
+      .form-item.error-item .input:hover,
+      .form-item.error-item .textarea:focus,
+      .form-item.error-item .textarea:hover,
+      .form-item.error-item .select-control:focus,
+      .form-item.error-item .select-control:hover {
+        border: none !important;
+        border-bottom: 1px solid $igw-gray-color-e0 !important;
+        box-shadow: none !important;
+      }
+      .form-item.error-item .input,
+      .form-item.error-item .textarea,
+      .form-item.error-item .select-control {
+        border: none !important;
+        border-bottom: 1px solid $igw-gray-color-e0 !important;
+        box-shadow: none !important;
+      }
+
+      input:-webkit-autofill,
+      textarea:-webkit-autofill,
+      select:-webkit-autofill {
+        -webkit-text-fill-color: $text-color !important;
+        -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+        background-color: transparent;
+        background-image: none;
+        transition: background-color 50000s ease-in-out 0s; // 背景色透明  生效时长  过渡效果  启用时延迟的时间
+      }
+      input {
+        background-color: transparent;
+      }
+    }
   }
 }
